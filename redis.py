@@ -19,7 +19,7 @@ r.ping() # to check the connection
 
 
 
-def open_data(conn,temp):
+def open_data():
     data = []
     with codecs.open('plz.json','rU','utf-8') as f:
         for line in f:
@@ -31,15 +31,6 @@ def open_data(conn,temp):
         pop=i['pop']
         state=i['state']
         print(type(i))
-
-        city=temp['city']
-        pop=temp['pop']
-        state=temp['state']
-        conn.hmset('_id:'+id,temp)
-        conn.sadd('loc:'+loc,id)
-        conn.sadd('city:'+city,id)
-        conn.sadd('pop:'+pop,id)
-        conn.sadd('state:'+state,id)
 
 def load_to_redis(conn):
     with codecs.open('plz.json','rU','utf-8') as f:
@@ -59,11 +50,6 @@ def load_to_redis(conn):
             conn.sadd('pop:'+pop,id)
             conn.sadd('state:'+state,id)
 
-
-
-
-#load_to_redis(r)
-
 def retrieve_loc_state(conn, id):
     res=conn.hmget('_id:'+id,'loc','state')
     print(res)
@@ -72,6 +58,7 @@ def retrieve_postcode(conn,city_name):
     res=conn.smembers('city:'+city_name)
     print(res)
 
+#load_to_redis(r)
 
 retrieve_loc_state(r,'01027')
 
