@@ -2,13 +2,11 @@ import docker
 import redis
 import json
 import codecs
-from pprint import pprint
 client = docker.from_env() # Connect to Docker using the default socket or the configuration in your environment
 
 
 container=client.containers()
 images=client.images()
-
 
 # To get the connection to the docker container running redis run on command line: $  docker container inspect redisimg
 #Look for the ip address of the container and copy it to host in the Redis( ...) function otherwise You can't connect
