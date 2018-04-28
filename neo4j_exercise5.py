@@ -9,7 +9,6 @@ def create_labeled(d,name):
         with session.begin_transaction() as tx:
             tx.run("CREATE (s:Module {name: $name})", name=name)
 
-#######################################CREATE LABELED NODES IN THE SPECIFIED LIST (lista) ##############################3
 def create_nodes():
     lista=['Calculus 1','Calculus 2','Linear Algebra','Discrete Mathematics','Programming','Computer Architecture','Law for Computer Science',
            'English for Computer Science','English B2','Physics 1','Database Systems','Operating Systems','Algorithms and Data Structures',
@@ -18,13 +17,11 @@ def create_nodes():
     for item in lista:
         create_labeled(driver,item)
 
-
-#create_nodes() # use it only once to create nodes
-
 def run_statement(d, stat):
     with d.session() as session:
         with session.begin_transaction() as tx:
             tx.run(stat)
+
 #### in each statement a.name is the class from which connection start a--> and in the list are specified the classes to connect a to
 def set_connections():  # to use just once
     calculus1="MATCH (a:Module), (b:Module) WHERE a.name='Calculus 1' AND b.name IN ['Calculus 2','Physics 1','Project Big Data','Robot Vision'] CREATE (a)-[r:REQUIRED_FOR]->(b)"
@@ -39,13 +36,19 @@ def set_connections():  # to use just once
     algorithms="MATCH (a:Module), (b:Module) WHERE a.name='Algorithms and Data Structures' AND b.name IN ['Programming'] CREATE (a)-[r:REQUIRED_FOR]->(b)"
     german="MATCH (a:Module), (b:Module) WHERE a.name='German Language' AND b.name IN ['NoSQL Big Data','Distributed Systems','Project Big Data','Security in distributed Systems','Robot Vision','Seminar Software & Sound','Practical Network Security'] CREATE (a)-[r:REQUIRED_FOR]->(b)"
     security="MATCH (a:Module), (b:Module) WHERE a.name='Security in distributed Systems' AND b.name IN ['Practical Network Security'] CREATE (a)-[r:REQUIRED_FOR]->(b)"
+    run_statement(driver, calculus1)
+    run_statement(driver, english)
+    run_statement(driver, linearalgebra)
+    run_statement(driver,discretemath)
+    run_statement(driver, programming)
     run_statement(driver, calculus2)
     run_statement(driver, operatingsys)
     run_statement(driver, distributedsys)
     run_statement(driver, databases)
-    run_statement(driver, algorithms)
+    run_statement(driver,algorithms)
     run_statement(driver, german)
     run_statement(driver, security)
+
 
 def run_query(d,query_statement,stringa):
     with d.session() as session:
@@ -59,6 +62,9 @@ def run_query(d,query_statement,stringa):
 query_end_nodes="MATCH (b:Module) WHERE NOT (b)-[]->() RETURN b"
 query_required_bigdata="MATCH (a:Module),(b:Module) WHERE b.name='NoSQL Big Data' AND (a)-[]->(b) RETURN a"
 
+
+#create_nodes() # use it only once to create nodes
+#set_connections()
 
 run_query(driver,query_end_nodes,'End nodes:')
 run_query(driver,query_required_bigdata,'Required for Big Data:')

@@ -1,21 +1,26 @@
-import docker
+#import docker
 import redis
 import json
 import codecs
-client = docker.from_env() # Connect to Docker using the default socket or the configuration in your environment
+import timeit
+#client = docker.from_env() # Connect to Docker using the default socket or the configuration in your environment
 
 
-container=client.containers()
-images=client.images()
+#container=client.containers()
+#images=client.images()
 
 # To get the connection to the docker container running redis run on command line: $  docker container inspect redisimg
 #Look for the ip address of the container and copy it to host in the Redis( ...) function otherwise You can't connect
 # $ docker exec -it redisimg redis-cli -p 6379:6379
-r = redis.Redis(host='172.17.0.2', port=6379, db=0, decode_responses=True)
+r = redis.Redis(host='172.17.0.3', port=6379, db=0, decode_responses=True)
 
+#redis://172.17.0.3:6379
 r.ping() # to check the connection
 
-
+def compute_time():
+    start = timeit.default_timer()
+    stop = timeit.default_timer()
+    print( stop - start)
 
 def open_data():
     data = []
@@ -57,6 +62,7 @@ def retrieve_postcode(conn,city_name):
     print(res)
 
 #load_to_redis(r)
+
 
 retrieve_loc_state(r,'01027')
 
