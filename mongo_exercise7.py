@@ -38,8 +38,8 @@ def get_loc_city(postcode):
         print(c)
 def get_postcode(city):
     for c in client.cities.plz.find({'city': city},{'_id':1}):
-        print('Postcode '+city+': ')
-        print(c)
+        print('Postcode '+city+': '+c['_id'])
+
 
 delete_db()
 import_data()  # run once to create database and collection
