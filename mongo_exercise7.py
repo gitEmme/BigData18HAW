@@ -12,14 +12,20 @@ def open_data():
         for line in f:
             data.append(json.loads(line))
     return data
+def delete_db():
+    client.drop_database('cities')
+    #print(client.get_database())
 def import_data():
     documents=open_data()
     for i in documents[:3]:
         print(i)
     db=client.cities
     plz_collection=db.plz
+    start = timeit.default_timer()
     plz_collection.insert_many(documents)
-    print(plz_collection)
+    stop = timeit.default_timer()
+    print('Running time for import : '+str(stop - start))
+    #print(plz_collection)
 
 def print_all():
     print(client.cities.plz)
@@ -35,8 +41,11 @@ def get_postcode(city):
         print('Postcode '+city+': ')
         print(c)
 
-#import_data()  # run once to create database and collection
+delete_db()
+import_data()  # run once to create database and collection
 #print_all()    # check inserted data
 get_loc_city('99034')   # TUMTUM postcode
 get_postcode('TUMTUM')
 get_postcode('HAMBURG')
+
+
