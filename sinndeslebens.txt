@@ -1,0 +1,12 @@
+{name: 'HSV', gruendung: (1887, 9, 29), farben: ['weiss', 'rot'], Tabellenplatz: 17, nike: 'n'}
+{name: 'Dortmund', gruendung: (1909, 12, 19), farben: ['gelb', 'schwarz'], Tabellenplatz: 16, nike: 'n'}
+{name: 'Schalke', gruendung: (1904, 5, 4), farben: ['blau'], Tabellenplatz: 15, nike: 'n'}
+{name: 'Paderborn', gruendung: (1907, 8, 14), farben:['blau', 'weiss'], Tabellenplatz:14, nike:'n', }
+{name: 'Hertha', gruendung: (1892, 7, 25), farben: ['blau', 'weiss'], Tabellenplatz: 13, nike: 'j'}
+{name: 'Augsburg', gruendung: (1907, 8, 8), farben: ['rot', 'weiss'], Tabellenplatz: 12,  nike: 'j'}
+{name: 'Pauli', gruendung: (1910, 5, 15), farben: ['braun', 'weiss'], Tabellenplatz: 11, nike: 'n'}
+{name: 'Gladbach', gruendung: (1900, 8,1), farben: ['schwarz', 'weiss', 'gruen'], Tabellenplatz: 10, nike: 'n'}
+{name: 'Frankfurt', gruendung: (1899, 3, 8), farben: ['rot', 'schwarz', 'weiss'],Tabellenplatz: 9, nike:'j'}
+{name: 'Leverkusen', gruendung: (1904, 11, 20, 16, 15), farben: ['rot', 'schwarz'], Tabellenplatz: 8, nike: 'n'}
+{name: 'Stuttgart', gruendung: (1893, 9, 9 ), farben: ['rot', 'weiss'], Tabellenplatz: 7, nike: 'n'}
+{name: 'Werder', gruendung: (1899,2,4), farben: ['gruen','weiss'], Tabellenplatz: 6, nike: 'j'}

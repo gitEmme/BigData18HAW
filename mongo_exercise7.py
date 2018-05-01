@@ -6,6 +6,7 @@ import timeit
 
 client=pymongo.MongoClient('172.17.0.2')
 
+
 def open_data():
     data = []
     with codecs.open('plz.json','rU','utf-8') as f:
