@@ -88,14 +88,22 @@ def find_nike_grunn_or_weiss():
 
 def max_tabellenPlatz():
     print('Teams max Tabellenplatz: ')
-    c=client.fussball.teams.find_one(sort=[('Tabellenplatz', pymongo.DESCENDING)])
+    c=client.fussball.teams.find_one({},{'_id':0},sort=[('Tabellenplatz', pymongo.DESCENDING)])
     print(c)
-
+#############################   TO DO
 def no_platz(): #chech this task better
     print('Teams with no place: ')
     for c in client.fussball.teams.find({'Tabellenplatz':'null'},{'_id':0}):
         print(c)
 
+def oldest_nike_team():
+    c=client.fussball.teams.find_one({'nike':'j'},{'name':1,'gruendung':1,'_id':0},sort=[('gruendung',pymongo.DESCENDING)])
+    print('Oldest nike team: ')
+    print(c)
+##########################   TO DO
+def update():   # to do!!! example of how to modify a field in a document
+    client.fussball.teams.update({"username": "janedoe"},
+                     {"$set": {"email": "janedoe74@example2.com", "score": 1}}, safe=True)
 def delete_db():
     client.drop_database('fussball')
 
@@ -107,3 +115,4 @@ find_nike_grunn_weiss()
 find_nike_grunn_or_weiss()
 max_tabellenPlatz()
 no_platz()
+oldest_nike_team()
