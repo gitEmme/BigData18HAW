@@ -18,3 +18,6 @@ def run_query(d,query_statement,stringa):
             for record in res:
                 print(record)
 
+run_query(driver,"MATCH (n)-[r:IsA]-() WHERE n.id='/c/en/baseball' RETURN DISTINCT r",'IsA')
+
+run_query(driver,"MATCH (m)-[r:IsA]-(n) WHERE n.id='/c/en/baseball' RETURN DISTINCT m AS node_id",'Directly connected nodes')

@@ -67,8 +67,33 @@ def import_data():
     print_db()
 
 def find_name(name):
-    for c in client.fussball.teams.find({'name': name}):
-        print('Teams with name '+name+': ')
+    print('Teams with name ' + name + ': ')
+    for c in client.fussball.teams.find({'name': name},{'_id':0}):
+        print(c)
+
+def find_nike_schwarz():
+    print('Teams nike with schwarz: ')
+    for c in client.fussball.teams.find({'nike':'j','farben':'schwarz'},{'_id':0}):
+        print(c)
+
+def find_nike_grunn_weiss():
+    print('Teams nike with gruen and weiss: ')
+    for c in client.fussball.teams.find({'nike':'j','farben':{ "$all" :['gruen','weiss']}},{'_id':0}):
+           print(c)
+
+def find_nike_grunn_or_weiss():
+    print('Teams nike with gruen or weiss: ')
+    for c in client.fussball.teams.find({'nike':'j','farben':{ "$in" :['gruen','weiss']}},{'_id':0}):
+            print(c)
+
+def max_tabellenPlatz():
+    print('Teams max Tabellenplatz: ')
+    c=client.fussball.teams.find_one(sort=[('Tabellenplatz', pymongo.DESCENDING)])
+    print(c)
+
+def no_platz(): #chech this task better
+    print('Teams with no place: ')
+    for c in client.fussball.teams.find({'Tabellenplatz':'null'},{'_id':0}):
         print(c)
 
 def delete_db():
@@ -77,3 +102,8 @@ def delete_db():
 #delete_db()
 #import_data()
 find_name('Augsburg')
+find_nike_schwarz()
+find_nike_grunn_weiss()
+find_nike_grunn_or_weiss()
+max_tabellenPlatz()
+no_platz()

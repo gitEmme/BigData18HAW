@@ -1,7 +1,7 @@
 from neo4j.v1 import GraphDatabase
-#to connect to the browser interface http://172.17.0.2:7474/browser/
+#to connect to the browser interface http://172.17.0.3:7474/browser/
 
-uri = "bolt://172.17.0.2:7687"
+uri = "bolt://172.17.0.3:7687"
 driver = GraphDatabase.driver(uri, auth=("neo4j", "password"))
 
 def create_labeled(d,name):
@@ -63,8 +63,8 @@ query_end_nodes="MATCH (b:Module) WHERE NOT (b)-[]->() RETURN b"
 query_required_bigdata="MATCH (a:Module),(b:Module) WHERE b.name='NoSQL Big Data' AND (a)-[]->(b) RETURN a"
 
 
-#create_nodes() # use it only once to create nodes
-#set_connections()
+create_nodes() # use it only once to create nodes
+set_connections()
 
 run_query(driver,query_end_nodes,'End nodes:')
 run_query(driver,query_required_bigdata,'Required for Big Data:')
