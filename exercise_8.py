@@ -101,11 +101,29 @@ def oldest_nike_team():
     print('Oldest nike team: ')
     print(c)
 ##########################   TO DO
-def update():   # to do!!! example of how to modify a field in a document
-    client.fussball.teams.update({"username": "janedoe"},
-                     {"$set": {"email": "janedoe74@example2.com", "score": 1}}, safe=True)
+def update():
+    #client.fussball.teams.update({'name': 'Augsburg'}, {'Tabellenplatz': 1})
+    client.fussball.teams.update({'name': 'Augsburg'}, {"$set": {'Tabellenplatz': 1}})
+    client.fussball.teams.update({'name': 'Leverkusen'}, {"$set": {'Tabellenplatz': 2}})
+    print('Teams with tabellenplatz')
+    for c in client.fussball.teams.find({'name':{"$in":['Augsburg','Leverkusen']}},{'name':1,'Tabellenplatz':1,'_id':0}):
+        print(c)
+    print('HSV abgestiegen: ')
+    client.fussball.teams.update({'name': 'HSV'}, {"$set": {'abgestiegen': 'j'}})
+    c= client.fussball.teams.find_one({'name':'HSV'},{'_id':0})
+    print(c)
+    print('White teams :')
+    client.fussball.teams.update({'farben':'weiss'},{"$set": {'Waschtemperatur': 90}},multi=True)
+    for c in client.fussball.teams.find({'farben':'weiss'},{'_id':0}):
+        print(c)
+
 def delete_db():
     client.drop_database('fussball')
+
+def print_all():
+    print(client.fussball.teams)
+    for c in client.fussball.teams.find({},{'_id':0}):
+        pprint.pprint(c)
 
 #delete_db()
 #import_data()
@@ -116,3 +134,4 @@ find_nike_grunn_or_weiss()
 max_tabellenPlatz()
 no_platz()
 oldest_nike_team()
+update()
